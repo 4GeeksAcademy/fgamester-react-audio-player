@@ -6,6 +6,12 @@ ul {
     list-style-type: none;
 }
 
-fa-pause, fa-play {
-    width: 24px !important;
+.resumeBtn {
+    width: 24px;
+}
+body {
+    background-color: rgba(33, 37, 41, 0.8);
+}
+
+.timeControl {
 }
