@@ -9,31 +9,7 @@ const AudioPlayer = () => {
     const [time, setTime] = useState(0)
     const [displayTime, setDisplayTime] = useState(0)
     const [duration, setDuration] = useState(0)
-    const [playList, setPlaylist] = useState([])
-
-    /*     const playList = [
-            { "id": 1, "name": "Mario Castle", "url": "/sound/files/mario/songs/castle.mp3", "category": "category" },
-            { "id": 2, "name": "Mario Star", "url": "/sound/files/mario/songs/hurry-starman.mp3", "category": "category" },
-            { "id": 3, "name": "Mario Overworld", "url": "/sound/files/mario/songs/overworld.mp3", "category": "category" },
-            { "id": 4, "name": "Mario Stage 1", "url": "/sound/files/mario/songs/stage1.mp3", "category": "category" },
-            { "id": 5, "name": "Mario Stage 2", "url": "/sound/files/mario/songs/stage2.mp3", "category": "category" },
-            { "id": 6, "name": "Mario Star", "url": "/sound/files/mario/songs/starman.mp3", "category": "category" },
-            { "id": 7, "name": "Mario Underworld", "url": "/sound/files/mario/songs/underworld.mp3", "category": "category" },
-            { "id": 8, "name": "Mario Underwater", "url": "/sound/files/mario/songs/underwater.mp3", "category": "category" },
-            { "id": 9, "name": "Zelda Castle", "url": "/sound/files/videogame/songs/zelda_castle.mp3", "category": "category" },
-            { "id": 10, "name": "Zelda Outworld", "url": "/sound/files/videogame/songs/zelda_outworld.mp3", "category": "category" },
-            { "id": 11, "name": "Zelda Titles", "url": "/sound/files/videogame/songs/zelda_title.mp3", "category": "category" },
-            { "id": 12, "name": "Sonic Brain Zone", "url": "/sound/files/videogame/songs/sonic_brain-zone.mp3", "category": "category" },
-            { "id": 13, "name": "Zelda Link To Past", "url": "/sound/files/videogame/songs/zelda_link-to-past.mp3", "category": "category" },
-            { "id": 14, "name": "Flintstones", "url": "/sound/files/cartoons/songs/flintstones.mp3", "category": "cartoon" },
-            { "id": 15, "name": "power-rangers", "url": "/sound/files/cartoons/songs/power-rangers.mp3", "category": "cartoon" },
-            { "id": 16, "name": "simpsons", "url": "/sound/files/cartoons/songs/simpsons.mp3", "category": "cartoon" },
-            { "id": 17, "name": "south-park", "url": "/sound/files/cartoons/songs/south-park.mp3", "category": "cartoon" },
-            { "id": 18, "name": "thundercats", "url": "/sound/files/cartoons/songs/thundercats.mp3", "category": "cartoon" },
-            { "id": 19, "name": "x-men", "url": "/sound/files/cartoons/songs/x-men.mp3", "category": "cartoon" }
-        ];
-     */
-
+    const [playList, setPlaylist] = useState(null)
 
     const updatePLaylist = () => {
         fetch("https://playground.4geeks.com/sound/songs")
@@ -47,17 +23,11 @@ const AudioPlayer = () => {
     }
 
     const updateDisplayTime = (e) => {
-        // setDisplayTime(Math.floor(songRef?.current?.currentTime));
         setDisplayTime(Math.floor(e.target.currentTime));
     };
 
     useEffect(() => {
         updatePLaylist()
-
-        /* songRef.current.addEventListener('timeupdate', updateDisplayTime);
-        return () => {
-            songRef.current.removeEventListener('timeupdate', updateDisplayTime);
-        }; */
     }, []);
 
     const playControl = () => {
@@ -91,7 +61,6 @@ const AudioPlayer = () => {
         }
     }
 
-
     const domList = <ul className="pointerHover list-group">
         {!!playList && playList.map((item, index) => (
             <li className="list-group-item bg-dark text-white border-secondary" onClick={() => changeRef(item, index)} key={index} >
@@ -116,8 +85,9 @@ const AudioPlayer = () => {
                     <p className="text-white align-self-center my-0 mx-2" >
                         {currentIndex !== undefined && (Math.floor(displayTime / 60) + ":" + ((displayTime % 60) < 10 ? "0" + (displayTime % 60) : (displayTime % 60)))}
                     </p>
-                    <input className="timeControl col-7" type="range" min={0} max={duration} value={displayTime}
+                    <input className="timeControl" type="range" min={0} max={duration} value={displayTime}
                         onChange={(e) => sliderTimeChanger(e)} />
+
                     <p className="text-white align-self-center my-0 mx-2" >
                         {currentIndex !== undefined && (Math.floor(duration / 60) + ":" + ((duration % 60) < 10 ? "0" + (duration % 60) : (duration % 60)))}
                     </p>
