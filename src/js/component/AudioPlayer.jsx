@@ -17,7 +17,6 @@ const AudioPlayer = () => {
                 return response.json()
             })
             .then((newResponse) => {
-                console.log(newResponse)
                 setPlaylist(newResponse.songs)
             })
     }
